@@ -1,13 +1,3 @@
-from django.contrib.auth.tokens import default_token_generator
-from django.db.models import Avg
-from django.shortcuts import get_object_or_404
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, status, filters
-from rest_framework.decorators import action, api_view, permission_classes
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
-
 from api.filters import TitleFilter
 from api.mixins import CreateListDestroyViewSet
 from api.permissions import (
@@ -26,6 +16,15 @@ from api.serializers import (
     TitleGETSerializer,
     UserSerializer)
 from api.utils import mail_send
+from django.contrib.auth.tokens import default_token_generator
+from django.db.models import Avg
+from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, status, filters
+from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 from reviews.models import Category, Genre, Review, Title
 from users.models import User
 
