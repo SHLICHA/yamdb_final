@@ -12,7 +12,6 @@ from .views import (
     UserViewSet,
 )
 
-
 router = DefaultRouter()
 router.register(
     r"titles/(?P<title_id>\d+)/reviews", ReviewViewSet, basename="reviews"

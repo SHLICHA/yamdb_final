@@ -7,27 +7,28 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from django.db.models import Avg
 from django_filters.rest_framework import DjangoFilterBackend
+
 from .filters import TitleFilter
 from .mixins import CreateListDestroyViewSet
 from reviews.models import Review, Category, Genre, Title
 from users.models import User
 from .utils import mail_send
 from .permissions import (
+    AdminOnly,
+    AnonimReadOnly,
     IsAdminModeratorOwnerOrReadOnly,
     IsAdminOrReadOnly,
-    AnonimReadOnly,
-    AdminOnly,
     IsUserOwner,
 )
 from .serializers import (
-    CommentSerializer,
-    ReviewSerializer,
     CategorySerializer,
+    CommentSerializer,
     GenreSerializer,
+    GetTokenSerializer,
+    ReviewSerializer,
     TitleSerializer,
     TitleGETSerializer,
     UserSerializer,
-    GetTokenSerializer,
 )
 
 
@@ -47,16 +48,15 @@ def get_code(request):
             )
         mail_send(user.email, confirmation_code)
         return Response(confirmation_code, status=status.HTTP_200_OK)
-    else:
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        user = get_object_or_404(
-            User, username=serializer.validated_data["username"]
-        )
-        confirmation_code = default_token_generator.make_token(user)
-        mail_send(user.email, confirmation_code)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+    serializer = UserSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    user = get_object_or_404(
+        User, username=serializer.validated_data["username"]
+    )
+    confirmation_code = default_token_generator.make_token(user)
+    mail_send(user.email, confirmation_code)
+    return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -141,17 +141,16 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(request.user)
         if request.method == "GET":
             return Response(serializer.data)
+        pk = request.user.pk
+        user = User.objects.get(id=pk)
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
         else:
-            pk = request.user.pk
-            user = User.objects.get(id=pk)
-            serializer = UserSerializer(user, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-            else:
-                return Response(
-                    "Некорректные данные", status=status.HTTP_400_BAD_REQUEST
-                )
-            return Response(serializer.validated_data)
+            return Response(
+                "Некорректные данные", status=status.HTTP_400_BAD_REQUEST
+            )
+        return Response(serializer.validated_data)
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
