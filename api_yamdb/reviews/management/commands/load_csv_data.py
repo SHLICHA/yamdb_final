@@ -3,10 +3,10 @@ import os
 
 from django.core.management import BaseCommand
 from django.db import IntegrityError
-
-from api_yamdb.settings import CSV_FILES_DIR
 from reviews.models import Category, Comment, Genre, GenreTitle, Review, Title
 from users.models import User
+
+from api_yamdb.settings import CSV_FILES_DIR
 
 FILES_CLASSES = {
     "category": Category,
