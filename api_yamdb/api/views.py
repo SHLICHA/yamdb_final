@@ -8,11 +8,24 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .filters import TitleFilter
-from .mixins import CreateListDestroyViewSet
-from .permissions import AdminOnly, AnonimReadOnly, IsAdminModeratorOwnerOrReadOnly, IsAdminOrReadOnly, IsUserOwner
-from .serializers import CategorySerializer, CommentSerializer, GenreSerializer, GetTokenSerializer, ReviewSerializer, TitleSerializer, TitleGETSerializer, UserSerializer
-from .utils import mail_send
+from api.filters import TitleFilter
+from api.mixins import CreateListDestroyViewSet
+from api.permissions import (
+    AdminOnly,
+    AnonimReadOnly,
+    IsAdminModeratorOwnerOrReadOnly,
+    IsAdminOrReadOnly,
+    IsUserOwner)
+from api.serializers import (
+    CategorySerializer,
+    CommentSerializer,
+    GenreSerializer,
+    GetTokenSerializer,
+    ReviewSerializer,
+    TitleSerializer,
+    TitleGETSerializer,
+    UserSerializer)
+from api.utils import mail_send
 from reviews.models import Category, Genre, Review, Title
 from users.models import User
 
