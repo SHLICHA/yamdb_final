@@ -4,11 +4,11 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     CategoryViewSet,
     GenreViewSet,
+    get_code,
+    get_token,
     TitleViewSet,
     ReviewViewSet,
     CommentViewSet,
-    get_code,
-    get_token,
     UserViewSet,
 )
 

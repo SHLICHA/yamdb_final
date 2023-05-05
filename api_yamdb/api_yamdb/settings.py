@@ -2,7 +2,6 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSV_FILES_DIR = os.path.join(BASE_DIR, "static/data")
 # SECURITY WARNING: keep the secret key used in production secret!

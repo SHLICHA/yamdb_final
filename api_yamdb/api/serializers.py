@@ -1,11 +1,11 @@
+from django.contrib.auth.tokens import default_token_generator
+from django.core.validators import MaxLengthValidator, RegexValidator
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
-from django.contrib.auth.tokens import default_token_generator
-from django.core.validators import RegexValidator, MaxLengthValidator
 from rest_framework.validators import UniqueValidator
 
-from reviews.models import Category, Genre, Title, Comment, Review
+from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import User
 
 
@@ -132,8 +132,7 @@ class UserSerializer(serializers.ModelSerializer):
     )
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+        return User.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
         instance.username = validated_data.get("username", instance.username)

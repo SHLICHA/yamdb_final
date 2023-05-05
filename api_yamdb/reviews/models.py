@@ -1,9 +1,9 @@
 from datetime import datetime
 
 from django.core.validators import (
-    RegexValidator,
-    MinValueValidator,
     MaxValueValidator,
+    MinValueValidator,
+    RegexValidator,
 )
 from django.db import models
 
