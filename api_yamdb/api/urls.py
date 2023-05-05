@@ -3,12 +3,12 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (
     CategoryViewSet,
+    CommentViewSet,
     GenreViewSet,
     get_code,
     get_token,
-    TitleViewSet,
     ReviewViewSet,
-    CommentViewSet,
+    TitleViewSet,
     UserViewSet,
 )
 
