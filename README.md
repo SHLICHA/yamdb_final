@@ -1,4 +1,6 @@
 # yamdb_final
 yamdb_final
 
-![example event parameter](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?event=push)
+https://github.com/shlicha/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg
+
+Адрес админки: 158.160.46.118/admin
