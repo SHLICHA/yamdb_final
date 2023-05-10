@@ -47,7 +47,7 @@ jobs:
         with:
           push: true
           context: ./api_yamdb
-          tags: shlicha/api_yamdb:latest
+          tags: shlicha/yamdb_final:latest
 
   deploy:
     runs-on: ubuntu-latest
